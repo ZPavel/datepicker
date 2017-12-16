@@ -2,7 +2,7 @@ window.onload = function() {
   var datePickerTpl = '<div class="yearMonth"><a class="previous">&lsaquo;</a><span class="year">{y}</span>-<span class="month">{m}</span><a class="next">&rsaquo;</a></div><div class="days"><a>1</a><a>2</a><a>3</a><a>4</a><a>5</a><a>6</a><a>7</a><a>8</a><a>9</a><a>10</a><a>11</a><a>12</a><a>13</a><a>14</a><a>15</a><a>16</a><a>17</a><a>18</a><a>19</a><a>20</a><a>21</a><a>22</a><a>23</a><a>24</a><a>25</a><a>26</a><a>27</a><a>28</a><a>29</a><a>30</a><a>31</a>';
 
   function daysInMonth(month, year) {
-      return new Date(year, month, 0).getDate();
+  	return new Date(year, month, 0).getDate();
   }
 
   function hideInvalidDays(dp, month, year){
@@ -27,7 +27,7 @@ window.onload = function() {
   function setMonthYear(dp, month, year, input) {
     dp.querySelector(".month").textContent = String(month).padStart(2, "0");
     dp.querySelector(".year").textContent = year;
-    clearSelected(dp);
+		clearSelected(dp);
     hideInvalidDays(dp, month, year);
     if(input && input.value) {
       var date = input.value.split("-");
@@ -40,8 +40,7 @@ window.onload = function() {
 
   document.querySelectorAll(".datepicker").forEach(function(input) {
   	input.setAttribute("readonly", "true");
-  	
-    var dp = document.createElement("div");
+  	var dp = document.createElement("div");
     dp.className = "dropdown";
     dp.style.left = input.offsetLeft + "px";
     dp.style.top = input.offsetTop + input.offsetHeight + "px";
@@ -63,9 +62,9 @@ window.onload = function() {
     
     dp.querySelectorAll(".days a").forEach(function(a){
     	a.addEventListener("click", function(e) {
-				clearSelected(dp);
-        e.target.className = "selected";
-        input.value = dp.querySelector(".year").textContent + "-" + dp.querySelector(".month").textContent + "-" + this.text.padStart(2, "0");
+    		clearSelected(dp);
+    		e.target.className = "selected";
+    		input.value = dp.querySelector(".year").textContent + "-" + dp.querySelector(".month").textContent + "-" + this.text.padStart(2, "0");
       });
     });
     
