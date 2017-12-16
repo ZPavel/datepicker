@@ -1,0 +1,29 @@
+.dropdown {
+  position: absolute;
+  line-height: 20px;
+  font-size: 12px;
+  width: 140px;
+  display: none;
+  background: #f6f6f6;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+a.previous, a.next, .days a {
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  width: 20px;
+}
+
+.selected {
+  font-weight: bold;
+  background: #8a46ff;
+  color: #ffffff;
+}
+
+input.datepicker:focus + div.dropdown {
+  display: block;
+}
+input.datepicker:focus + div.dropdown, div.dropdown:hover {
+  display: block;
+}
