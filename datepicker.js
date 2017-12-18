@@ -41,7 +41,7 @@ window.onload = function() {
   document.querySelectorAll(".datepicker").forEach(function(input) {
   	input.setAttribute("readonly", "true");
   	var dp = document.createElement("div");
-    dp.className = "dropdown";
+    dp.className = "contextmenu";
     dp.style.left = input.offsetLeft + "px";
     dp.style.top = input.offsetTop + input.offsetHeight + "px";
     var now = new Date();

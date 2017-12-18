@@ -1,4 +1,4 @@
-.dropdown {
+.contextmenu {
   position: absolute;
   line-height: 20px;
   font-size: 12px;
@@ -21,9 +21,9 @@ a.previous, a.next, .days a {
   color: #ffffff;
 }
 
-input.datepicker:focus + div.dropdown {
+input.datepicker:focus + div.contextmenu {
   display: block;
 }
-input.datepicker:focus + div.dropdown, div.dropdown:hover {
+input.datepicker:focus + div.contextmenu, div.contextmenu:hover {
   display: block;
 }
