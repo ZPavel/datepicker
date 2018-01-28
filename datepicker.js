@@ -45,7 +45,7 @@ window.onload = function() {
     dp.style.left = input.offsetLeft + "px";
     dp.style.top = input.offsetTop + input.offsetHeight + "px";
     var now = new Date();
-    dp.insertAdjacentHTML('beforeEnd', datePickerTpl.replace("{m}", now.getMonth() + 1).replace("{y}", now.getFullYear()));
+    dp.insertAdjacentHTML('beforeEnd', datePickerTpl.replace("{m}", String(now.getMonth() + 1).padStart(2, "0")).replace("{y}", now.getFullYear()));
     hideInvalidDays(dp, now.getMonth() + 1, now.getFullYear());
    
     dp.querySelector("a.previous").addEventListener("click", function(e){
