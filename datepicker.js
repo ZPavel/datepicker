@@ -1,4 +1,23 @@
 window.onload = function() {
+  // IE11 forEach, padStart
+  (function () {
+    if ( typeof NodeList.prototype.forEach === "function" ) return false;
+    NodeList.prototype.forEach = Array.prototype.forEach;
+  })();
+
+  (function () {
+    if ( typeof String.prototype.padStart === "function" ) return false;
+    String.prototype.padStart = function padStart(length, value) {
+      var res = String(this);
+      if(length >= (value.length + this.length)) {
+        for (var i = 0; i <= (length - (value.length + this.length)); i++) {
+          res = value + res;
+        }
+      }
+      return res;
+    };
+  })();
+
   var datePickerTpl = '<div class="yearMonth"><a class="previous">&lsaquo;</a><span class="year">{y}</span>-<span class="month">{m}</span><a class="next">&rsaquo;</a></div><div class="days"><a>1</a><a>2</a><a>3</a><a>4</a><a>5</a><a>6</a><a>7</a><a>8</a><a>9</a><a>10</a><a>11</a><a>12</a><a>13</a><a>14</a><a>15</a><a>16</a><a>17</a><a>18</a><a>19</a><a>20</a><a>21</a><a>22</a><a>23</a><a>24</a><a>25</a><a>26</a><a>27</a><a>28</a><a>29</a><a>30</a><a>31</a>';
 
   function daysInMonth(month, year) {
@@ -31,7 +50,7 @@ window.onload = function() {
     hideInvalidDays(dp, month, year);
     if(input && input.value) {
       var date = input.value.split("-");
-      var [curYear, curMonth] = [parseInt(dp.querySelector(".year").textContent), parseInt(dp.querySelector(".month").textContent)];
+      var curYear = parseInt(dp.querySelector(".year").textContent), curMonth = parseInt(dp.querySelector(".month").textContent);
       if(date[0] == curYear && date[1] == curMonth) {
       	dp.querySelector(".days a:nth-child(" + parseInt(date[2]) + ")").className = "selected";
       }
@@ -47,19 +66,19 @@ window.onload = function() {
     var now = new Date();
     dp.insertAdjacentHTML('beforeEnd', datePickerTpl.replace("{m}", String(now.getMonth() + 1).padStart(2, "0")).replace("{y}", now.getFullYear()));
     hideInvalidDays(dp, now.getMonth() + 1, now.getFullYear());
-   
+
     dp.querySelector("a.previous").addEventListener("click", function(e){
-      var [curYear, curMonth] = [parseInt(dp.querySelector(".year").textContent), parseInt(dp.querySelector(".month").textContent)];
+      var curYear = parseInt(dp.querySelector(".year").textContent), curMonth = parseInt(dp.querySelector(".month").textContent);
       var firstMonth = curMonth - 1 == 0;
       setMonthYear(dp, firstMonth ? 12 : curMonth - 1, firstMonth ? curYear - 1 : curYear, input);
     });
-    
+
     dp.querySelector("a.next").addEventListener("click", function(e){
-      var [curYear, curMonth] = [parseInt(dp.querySelector(".year").textContent), parseInt(dp.querySelector(".month").textContent)];
+      var curYear = parseInt(dp.querySelector(".year").textContent), curMonth = parseInt(dp.querySelector(".month").textContent);
       var lastMonth = curMonth + 1 == 13;
       setMonthYear(dp, lastMonth ? 1 : curMonth + 1, lastMonth ? curYear + 1 : curYear, input);
     });
-    
+
     dp.querySelectorAll(".days a").forEach(function(a){
     	a.addEventListener("click", function(e) {
     		clearSelected(dp);
@@ -67,7 +86,7 @@ window.onload = function() {
     		input.value = dp.querySelector(".year").textContent + "-" + dp.querySelector(".month").textContent + "-" + this.text.padStart(2, "0");
       });
     });
-    
+
     input.parentNode.insertBefore(dp, input.nextSibling);
 
     input.addEventListener("focus", function(){
@@ -79,6 +98,3 @@ window.onload = function() {
     });
   });
 };
-
-
-
